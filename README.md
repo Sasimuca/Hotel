@@ -1,3 +1,5 @@
+OASIS PALACE HOTEL
+
 Localizado em uma região paradisíaca, o Oasis Palace Hotel é o refúgio perfeito para aqueles que buscam uma experiência única de hospedagem. Combinando luxo, conforto e hospitalidade, nosso hotel oferece uma atmosfera acolhedora e instalações de primeira classe para garantir uma estadia inesquecível.
 
 Nossos quartos são elegantemente decorados e equipados com todas as comodidades modernas para garantir o máximo conforto dos nossos hóspedes. Das espaçosas suítes executivas aos aconchegantes quartos padrão, há uma acomodação adequada para todas as preferências.
