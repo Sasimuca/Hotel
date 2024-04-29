@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oasis Palace Hotel</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Máscara para CPF
+            $('#cpf').inputmask('999.999.999-99');
+
+            // Máscara para data de chegada
+            $('#chegada').inputmask('99/99/9999');
+
+            // Máscara para valor estimado
+            $('#total-estimado').inputmask('currency', {
+                prefix: 'R$ ',
+                alias: 'numeric',
+                autoGroup: true,
+                groupSeparator: ',',
+                radixPoint: '.',
+                digits: 2,
+                rightAlign: false,
+                allowMinus: false
+            });
+        });
+
+        function calcularTotal() {
+    if (validarFormulario()) {
+        var noites = parseInt(document.getElementById('noites').value);
+        var hospedes = parseInt(document.getElementById('hospedes').value);
+        var valorPorNoite = 8000; // Valor fictício por noite por pessoa
+        var total = (hospedes * 4000) + noites * valorPorNoite;
+        document.getElementById('total-estimado').value = 'R$ ' + total.toFixed(2);
+    }
+}
+
+        function validarFormulario() {
+            var noites = parseInt(document.getElementById('noites').value);
+            var hospedes = parseInt(document.getElementById('hospedes').value);
+            var dataChegada = new Date(document.getElementById('chegada').value);
+            var hoje = new Date();
+            var limiteData = new Date(2024, 4, 1); // A partir de maio de 2024
+            var dataMaxima = new Date(2024, 11, 31); // Até dezembro de 2024
+
+            if (noites > 14) {
+                alert('O número de noites não pode exceder 14.');
+                return false;
+            }
+
+            if (hospedes > 5) {
+                alert('O número de hóspedes não pode exceder 5.');
+                return false;
+            }
+
+            if (dataChegada < limiteData) {
+                alert('A data de chegada deve ser a partir de maio de 2024.');
+                return false;
+            }
+
+            if (dataChegada > dataMaxima) {
+                alert('A reserva só é aceita até o final de 2024.');
+                return false;
+            }
+
+            if (dataChegada > dataMaxima) {
+                alert('A reserva só é aceita até o final de 2024.');
+                return false;
+            }
+
+            if (dataChegada < hoje) {
+                alert('A data de chegada não pode ser no passado.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <header style="background-color: #032D30;" class="text-white py-4">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="logo">
+                <img src="logo.png" alt="Oasis Palace Hotel" class="img-fluid">
+            </div>
+            <nav>
+                <ul class="list-unstyled mb-0">
+                    <li class="nav-item"><a href="index.html" class="nav-link text-white">Início</a></li>
+                    <li class="nav-item"><a href="quartos.html" class="nav-link text-white">Quartos</a></li>
+                    <li class="nav-item"><a href="galeria.html" class="nav-link text-white">Galeria</a></li>
+                    <li class="nav-item"><a href="contato.html" class="nav-link text-white">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-4">
+        <section class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mb-4">Reserve sua estadia</h2>
+                            <form action="#" method="POST" onsubmit="return validarFormulario();">
+                                <div class="form-group">
+                                    <label for="nome">Nome:</label>
+                                    <input type="text" id="nome" name="nome" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sexo">Sexo:</label>
+                                    <select id="sexo" name="sexo" class="form-control" required>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="feminino">Feminino</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input type="email" id="email" name="email" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cpf">CPF:</label>
+                                    <input type="text" id="cpf" name="cpf" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="chegada">Data de Chegada:</label>
+                                    <input type="date" id="chegada" name="chegada" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="noites">Número de Noites:</label>
+                                    <input type="number" id="noites" name="noites" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hospedes">Número de Hóspedes:</label>
+                                    <input type="number" id="hospedes" name="hospedes" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="total-estimado">Total Estimado:</label>
+                                    <input type="text" id="total-estimado" name="total-estimado" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mensagem">Mensagem:</label>
+                                    <textarea id="mensagem" name="mensagem" class="form-control" rows="3"></textarea>
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" id="newsletter" name="newsletter" class="form-check-input">
+                                    <label for="newsletter" class="form-check-label">Quero receber informações por e-mail</label>
+                                </div>
+                                <button type="button" class="btn btn-primary btn-block" onclick="calcularTotal()">Reservar Agora</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
